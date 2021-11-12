@@ -21,8 +21,8 @@ export const Navigation = () => {
               {routes.map(({ path, name }) => (
                 <li key={path}>
                   <NavLink
-                    end
                     to={path}
+                    end={false}
                     className={({ isActive }) => (isActive ? "nav-active" : "")}
                   >
                     {name}
