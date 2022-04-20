@@ -14,33 +14,18 @@ export const useShoppingCart = () => {
     product: Product;
   }) => {
     setShoppingCart((oldShoppingCartValue) => {
-      const productInCart: ProductIncart = oldShoppingCartValue[product.id] || {
-        ...product,
-        count: 0,
-      };
 
-      if (Math.max(productInCart.count + count, 0) > 0) {
-        productInCart.count += count;
-        return {
-          ...oldShoppingCartValue,
-          [product.id]: productInCart,
-        };
+      if (count === 0) {
+        const { [product.id]: toDelete, ...rest } = oldShoppingCartValue;
+        return { ...rest };
       }
-
-      const { [product.id]: toDelete, ...rest } = oldShoppingCartValue;
-      return rest;
-
-      // if (count === 0) {
-      //   const { [product.id]: toDelete, ...rest } = oldShoppingCartValue;
-      //   return { ...rest };
-      // }
-      // return {
-      //   ...oldShoppingCartValue,
-      //   [product.id]: {
-      //     ...product,
-      //     counter: count,
-      //   },
-      // };
+      return {
+        ...oldShoppingCartValue,
+        [product.id]: {
+          ...product,
+          count: count,
+        },
+      };
     });
   };
 
